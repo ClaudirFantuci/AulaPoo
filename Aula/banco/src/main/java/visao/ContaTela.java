@@ -20,12 +20,13 @@ public class ContaTela {
 		conta.setDataTransacao(new Date());
 		conta.setDescricao("Depósito de 500,00 no dia 03/10/24");
 		conta.setNomeCorrentista("José");
-		conta.setTipoTransacao("deposito");
-		conta.setValorOperacao(5000.);
+		conta.setTipoTransacao("saque");
+		conta.setValorOperacao(10.);
 		conta.setHorarioMovimentacao(LocalDateTime.now().getHour());
 		controle.inserir(conta);
 
-		controle.extrato(conta);
+		// controle.extrato(conta);
+		// controle.extratoPeriodico(conta);
 	}
 
 }

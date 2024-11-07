@@ -122,12 +122,14 @@ public class ContaDAO {
 			// Converte a string de data para o tipo Date
 			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			SimpleDateFormat formato2 = new SimpleDateFormat("MM/yyyy");
-			Date primeiroDia = formato2.parse("1/" + dia);
+			Date primeiroDia = formato2.parse("01/" + dia);
 			Date dataTransacao = formato.parse(dia);
 
 			Query query = em.createQuery(
-					"from Conta where cpf_correntista = :cpf and dataTransacao LIKE :dataTransacao", Conta.class);
+					"from Conta where cpf_correntista = :cpf and dataTransacao between :primeiroDia and :dataTransacao",
+					Conta.class);
 			query.setParameter("cpf", cpf);
+			query.setParameter("primeiroDia", primeiroDia);
 			query.setParameter("dataTransacao", dataTransacao);
 
 			return query.getResultList();

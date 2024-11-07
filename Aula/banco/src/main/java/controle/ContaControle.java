@@ -13,8 +13,12 @@ public class ContaControle {
 		return servico.inserir(conta);
 	}
 
-	public List<Conta> extrato(Conta conta) {
-		return servico.extratoMes(conta);
+	public void extrato(Conta conta) {
+		servico.extratoMes(conta);
 	}
 
+	public void extratoPeriodico(Conta conta) {
+		servico.extratoPeriodico(conta);
+
+	}
 }
