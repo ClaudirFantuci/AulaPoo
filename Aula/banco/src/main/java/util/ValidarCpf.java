@@ -1,11 +1,11 @@
 package util;
 
-import entidade.Conta;
+import entidade.Movimentacao;
 
 public class ValidarCpf {
-	public static boolean validarCpf(Conta conta) {
+	public static boolean validarCpf(Movimentacao movimentacao) {
 
-		String cpf = conta.getCpfCorrentista();
+		String cpf = movimentacao.getCpfCorrentista();
 		cpf = cpf.replace(".", "");
 		cpf = cpf.replace("-", "");
 
