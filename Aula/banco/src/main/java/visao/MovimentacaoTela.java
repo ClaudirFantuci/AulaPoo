@@ -8,8 +8,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import controle.ClienteControle;
+import controle.ContaControle;
 import controle.MovimentacaoControle;
+import dao.ClienteDAO;
+import dao.ContaDAO;
 import controle.MovimentacaoControle;
+import entidade.Cliente;
+import entidade.Conta;
+import entidade.ContaTipo;
 import entidade.Movimentacao;
 import entidade.Movimentacao;
 import servico.MovimentacaoServico;
@@ -17,8 +24,23 @@ import servico.MovimentacaoServico;
 public class MovimentacaoTela {
 
 	public static void main(String[] args) {
-		MovimentacaoControle controle = new MovimentacaoControle();
+		ClienteDAO clienteDAO = new ClienteDAO();
+		ContaDAO contaDao = new ContaDAO();
 
+		ClienteControle controleCliente = new ClienteControle();
+		Cliente cliente = new Cliente();
+		cliente.setCpf("10174068980");
+		cliente.setNome("José Antônio da Silva");
+		controleCliente.inserir(cliente);
+
+		ContaControle controleConta = new ContaControle();
+		Conta conta = new Conta();
+		conta.setDataAbertura(new Date());
+		conta.setCliente(cliente);
+		conta.setContaTipo(ContaTipo.CONTA_CORRENTE);
+		controleConta.inserir(conta);
+
+		MovimentacaoControle controleMovimentacao = new MovimentacaoControle();
 		Movimentacao movimentacao = new Movimentacao();
 		movimentacao.setCpfCorrentista("10174068980");
 		movimentacao.setDataTransacao(new Date());
@@ -27,22 +49,26 @@ public class MovimentacaoTela {
 		movimentacao.setTipoTransacao("deposito");
 		movimentacao.setValorOperacao(8.);
 		movimentacao.setHorarioMovimentacao(LocalDateTime.now().getHour());
-		controle.inserir(movimentacao);
-		String notificar = controle.VerificarNotificarSaldo(movimentacao);
-		if(notificar != null) {
+		controleMovimentacao.inserir(movimentacao);
+
+		String notificar = controleMovimentacao.VerificarNotificarSaldo(movimentacao);
+		if (notificar != null) {
 			System.out.println(notificar);
 		}
-		Scanner sc = new Scanner(System.in);
-		String inicio = sc.nextLine();
-		String fim = sc.nextLine();
-		 List<Movimentacao> movimentacoes = controle.extratoPeriodico(movimentacao, inicio, fim);
-		 System.out.println("Extrato entre" + inicio + "-" + fim + ":");
-			for (Movimentacao movimentacao2 : movimentacoes) {
-				System.out.println("id" + movimentacao2.getId() + "nome: " + movimentacao2.getNomeCorrentista() + " cpf: "
-						+ movimentacao2.getCpfCorrentista()
-						+ " tipo transação: " + movimentacao2.getTipoTransacao() + " valor operação: " + movimentacao2.getValorOperacao()
-						+ " data transação: " + movimentacao2.getDataTransacao());
-			}
+		// Scanner sc = new Scanner(System.in);
+		// String inicio = sc.nextLine();
+		// String fim = sc.nextLine();
+		// List<Movimentacao> movimentacoes = controle.extratoPeriodico(movimentacao,
+		// inicio, fim);
+		// System.out.println("Extrato entre" + inicio + "-" + fim + ":");
+		// for (Movimentacao movimentacao2 : movimentacoes) {
+		// System.out.println("id" + movimentacao2.getId() + "nome: " +
+		// movimentacao2.getNomeCorrentista() + " cpf: "
+		// + movimentacao2.getCpfCorrentista()
+		// + " tipo transação: " + movimentacao2.getTipoTransacao() + " valor operação:
+		// " + movimentacao2.getValorOperacao()
+		// + " data transação: " + movimentacao2.getDataTransacao());
+		// }
+		// }
 	}
-
 }

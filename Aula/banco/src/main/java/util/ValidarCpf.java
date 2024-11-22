@@ -3,9 +3,8 @@ package util;
 import entidade.Movimentacao;
 
 public class ValidarCpf {
-	public static boolean validarCpf(Movimentacao movimentacao) {
+	public static boolean validarCpf(String cpf) {
 
-		String cpf = movimentacao.getCpfCorrentista();
 		cpf = cpf.replace(".", "");
 		cpf = cpf.replace("-", "");
 

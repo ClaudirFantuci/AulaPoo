@@ -39,8 +39,8 @@ public class MovimentacaoServico {
 			System.out.println("Limite de operações diárias atingido");
 			return false;
 		}
-
-		if (ValidarCpf.validarCpf(movimentacao) == false) {
+		String cpf = movimentacao.getCpfCorrentista();
+		if (ValidarCpf.validarCpf(cpf) == false) {
 			System.out.println("CPF inválido");
 			return false;
 		}
@@ -63,32 +63,35 @@ public class MovimentacaoServico {
 	}
 
 	public void tarifaSaque(Movimentacao movimentacao) {
-		if(movimentacao.getTipoTransacao() == "saque") {
+		if (movimentacao.getTipoTransacao() == "saque") {
 			double valor = movimentacao.getValorOperacao();
 			movimentacao.setValorOperacao(valor + 2.);
 		}
 	}
-	
+
 	public void tarifaPix(Movimentacao movimentacao) {
-		if(movimentacao.getTipoTransacao() == "pagamento" ||movimentacao.getTipoTransacao() == "pix") {
+		if (movimentacao.getTipoTransacao() == "pagamento" || movimentacao.getTipoTransacao() == "pix") {
 			double valor = movimentacao.getValorOperacao();
 			movimentacao.setValorOperacao(valor + 5.);
 		}
 	}
+
 	public List<Movimentacao> extratoMes(Movimentacao movimentacao) {
 		String dia = diaTransacao(movimentacao);
 		List<Movimentacao> movimentacaos = dao.buscarPorCpfMes(movimentacao.getCpfCorrentista(), dia);
 		System.out.println("Extrato do mês");
 		for (Movimentacao movimentacao2 : movimentacaos) {
-			System.out.println("nome: " + movimentacao2.getNomeCorrentista() + " cpf: " + movimentacao2.getCpfCorrentista()
-					+ " tipo transação: " + movimentacao2.getTipoTransacao() + " valor operação: " + movimentacao2.getValorOperacao()
-					+ " data transação: " + movimentacao2.getDataTransacao());
+			System.out.println(
+					"nome: " + movimentacao2.getNomeCorrentista() + " cpf: " + movimentacao2.getCpfCorrentista()
+							+ " tipo transação: " + movimentacao2.getTipoTransacao() + " valor operação: "
+							+ movimentacao2.getValorOperacao()
+							+ " data transação: " + movimentacao2.getDataTransacao());
 		}
 		return movimentacaos;
 	}
 
-	public List<Movimentacao> extratoPeriodico(Movimentacao movimentacao, String inicio,String fim) {
-		
+	public List<Movimentacao> extratoPeriodico(Movimentacao movimentacao, String inicio, String fim) {
+
 		List<Movimentacao> movimentacaos = dao.buscarPorCpfPeriodico(movimentacao.getCpfCorrentista(), inicio, fim);
 		return movimentacaos;
 	}
@@ -179,7 +182,7 @@ public class MovimentacaoServico {
 					&& virificarSaldo(movimentacao) - movimentacao.getValorOperacao() < 100.) {
 				return "Saldo abaixo de R$ 100,00";
 			}
-		
+
 		}
 		return null;
 	}
