@@ -18,10 +18,12 @@ public class ContaServico {
 
     public boolean validarOperacao(Conta conta) {
         List<Conta> contas = dao.buscarPorIdCliente(conta);
-        if (contas.size() > 3) {
+        if (contas.size() >= 3) {
             System.out.println("Cliente já possui mais de 3 contas");
             return false;
         }
         return true;
     }
+    
+    public 
 }

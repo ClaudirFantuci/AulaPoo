@@ -2,6 +2,7 @@ package entidade;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -27,7 +28,14 @@ public class Conta {
 	private Date dataAbertura;
 	@Enumerated(EnumType.STRING)
 	private ContaTipo contaTipo;
-
+	@Column(name = "limete")
+	private Double limite;
+	public Double getLimite() {
+		return limite;
+	}
+	public void setLimite(Double limite) {
+		this.limite = limite;
+	}
 	public Long getId() {
 		return id;
 	}

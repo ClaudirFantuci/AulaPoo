@@ -1,6 +1,7 @@
 package dao;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -193,8 +194,29 @@ public class MovimentacaoDAO {
 		// return em.find(movimentacao.class, id);
 	}
 
-	public List<Movimentacao> buscarPorCpfData(String cpfCorrentista, Date date) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'buscarPorCpfData'");
+	public List<Movimentacao> buscarMovimentacoesTresMeses(String cpf) {
+	    EntityManager em = emf.createEntityManager();
+	    try {
+	        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+	        Calendar calendar = Calendar.getInstance();
+	        calendar.add(Calendar.MONTH, -3);
+	        Date dataInicio = calendar.getTime();
+	        Date dataFinal = new Date();
+
+	        Query query = em.createQuery(
+	            "from Movimentacao where cpf_correntista = :cpf and dataTransacao between :dataInicio and :dataFinal",
+	            Movimentacao.class
+	        );
+	        query.setParameter("cpf", cpf);
+	        query.setParameter("dataInicio", dataInicio);
+	        query.setParameter("dataFinal", dataFinal);
+
+	        return query.getResultList();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    } finally {
+	        em.close();
+	    }
 	}
 }
