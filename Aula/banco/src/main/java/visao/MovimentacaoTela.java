@@ -37,7 +37,7 @@ public class MovimentacaoTela {
 		Conta conta = new Conta();
 		conta.setDataAbertura(new Date());
 		conta.setCliente(cliente);
-		conta.setContaTipo(ContaTipo.CONTA_CORRENTE);
+		conta.setContaTipo(ContaTipo.CONTA_POUPANCA);
 		controleConta.inserir(conta);
 		
 		Conta conta1 = new Conta();
@@ -46,17 +46,7 @@ public class MovimentacaoTela {
 		conta1.setContaTipo(ContaTipo.CONTA_CORRENTE);
 		controleConta.inserir(conta1);
 		
-		Conta conta2 = new Conta();
-		conta2.setDataAbertura(new Date());
-		conta2.setCliente(cliente);
-		conta2.setContaTipo(ContaTipo.CONTA_CORRENTE);
-		controleConta.inserir(conta2);
-		
-		Conta conta3 = new Conta();
-		conta3.setDataAbertura(new Date());
-		conta3.setCliente(cliente);
-		conta3.setContaTipo(ContaTipo.CONTA_CORRENTE);
-		controleConta.inserir(conta3);
+
 		
 		MovimentacaoControle controleMovimentacao = new MovimentacaoControle();
 		Movimentacao movimentacao = new Movimentacao();

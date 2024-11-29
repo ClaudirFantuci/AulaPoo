@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import entidade.Cliente;
+import entidade.Movimentacao;
 
 public class ClienteDAO {
 
@@ -22,6 +23,13 @@ public class ClienteDAO {
         em.close();
         return cliente;
     }
+    
+    public Cliente buscarPorId(Long id) {
+		EntityManager em = emf.createEntityManager();
+		Cliente cliente = em.find(Cliente.class, id);
+		em.close();
+		return cliente;
+	}
 
     public List<Cliente> buscarPorCpf(String cpf) {
         EntityManager em = emf.createEntityManager();

@@ -162,6 +162,28 @@ public class MovimentacaoDAO {
 			em.close();
 		}
 	}
+	public List<Movimentacao> buscarTipoTransacaoTipoConta(String cpf, String tipoTransacao, String contaTipo) {
+		EntityManager em = emf.createEntityManager();
+		try {
+			// Converte a string de data para o tipo Date
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			Date dataTransacao = dateFormat.parse(dia);
+
+			Query query = em.createQuery(
+					"from Movimentacao where cpf_correntista = :cpf and dataTransacao = :dataTransacao and tipo_transacao = :tipoTransacao and conta_tipo = :tipoconta",
+					Movimentacao.class);
+			query.setParameter("cpf", cpf);
+			query.setParameter("tipoTransacao", tipoTransacao);
+			query.setParameter("tipoconta", contaTipo);
+
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			em.close();
+		}
+	}
 
 	public List<Movimentacao> buscarPorCpfDiaTipoTransacao(String cpf, String dia, String tipoTransacao) {
 		EntityManager em = emf.createEntityManager();

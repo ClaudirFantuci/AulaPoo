@@ -11,6 +11,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -32,12 +34,17 @@ public class Movimentacao {
 	private String descricao;
 	@Temporal(TemporalType.DATE)
 	private Date dataTransacao;
-
+	@ManyToOne
+	@JoinColumn(name="conta_id")
+	private Conta conta;
+	
+	
 	private int horarioMovimentacao;
 
 	@Column(name = "valor_operacao")
 	private Double valorOperacao;
-
+	
+	
 	public int getHorarioMovimentacao() {
 		return horarioMovimentacao;
 	}
